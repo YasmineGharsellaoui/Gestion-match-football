@@ -1,0 +1,129 @@
+<div class="hero overlay" style="background-image: url('assets/images/bg_3.jpg')">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-9 mx-auto text-center">
+        <h1 class="text-white">Admin</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin: 5%;">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+        aria-controls="pills-home" aria-selected="true">Players</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+        aria-controls="pills-profile" aria-selected="false">Matches</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="pills-users-tab" data-toggle="pill" href="#pills-users" role="tab"
+        aria-controls="pills-users" aria-selected="false">Users</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="pills-stadiums-tab" data-toggle="pill" href="#pills-stadiums" role="tab"
+        aria-controls="pills-stadiums" aria-selected="false">Stadiums</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Poste</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let p of players'>
+            <th scope="row">{{p._id}}</th>
+            <td>{{p.name}}</td>
+            <td>{{p.poste}}</td>
+            <td>{{p.description | titlecase}}</td>
+            <!-- Property Binding (src, class, id, ... ) : propriétés HTML
+                    Envoyer les valeurs de la partie TS à la partie HTML aux propriétés 
+                    de la page  WEB
+                    -->
+            <td><img [src]="p.image" [alt]="p.name" height="100px" width="100px"></td>
+            <td>
+              <button class="btn btn-outline-success" (click)='display(p._id)'>Display</button>
+              <button class="btn btn-outline-info" (click)='edit(p._id)'>Edit</button>
+              <button class="btn btn-outline-danger" (click)='delete(p._id)'>Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Team One</th>
+            <th scope="col">Logo Team One</th>
+            <th scope="col">Team Two</th>
+            <th scope="col">Logo Team Two</th>
+            <th scope="col">Score One</th>
+            <th scope="col">Score Two</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let m of matches'>
+            <th>{{m.teamOne}}</th>
+            <th><img [src]="m.logoOne" height="50px" width="50px" style="border-radius: 30px;" alt=""></th>
+            <td>{{m.teamTwo}}</td>
+            <th><img [src]="m.logoTwo" height="50px" width="50px" style="border-radius: 30px;" alt=""></th>
+            <td>{{m.scoreOne}}</td>
+            <td>{{m.scoreTwo}}</td>
+            <td>
+              <button class="btn btn-outline-danger" (click)='deleteMatch(m._id)'>Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="pills-users" role="tabpanel" aria-labelledby="pills-users-tab">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tel</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let u of users'>
+            <td>{{u._id}}</td>
+            <td>{{u.firstName | uppercase}}</td>
+            <td>{{u.lastName}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.tel}}</td>
+            <td>{{u.role}}</td>
+            <td>
+              <button class="btn btn-danger" (click)='deleteUser(u._id)'>Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="pills-stadiums" role="tabpanel" aria-labelledby="pills-stadiums-tab">
+      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div *ngFor='let s of stadiums'>
+          <app-stadium [s]='s' (newStadiums)='updateStadiums($event)'></app-stadium>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+
+<!-- Ajouter les deux images de chaque Team ds l'admin -->
